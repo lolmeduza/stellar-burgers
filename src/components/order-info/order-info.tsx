@@ -15,6 +15,8 @@ export const OrderInfo: FC = () => {
     number: 0
   };
 
+  // const orderData = useSelector(userDataSelector);
+
   const ingredients: TIngredient[] = [];
 
   /* Готовим данные для отображения */
