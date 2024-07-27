@@ -18,13 +18,18 @@ import {
   Location,
   useNavigate
 } from 'react-router-dom';
-import { AppHeader } from '@components';
+import { AppHeader, IngredientDetails, OrderInfo } from '@components';
 import { ProtectedRoute } from '../protected-route';
 import { useDispatch } from '../../services/hooks';
 import { useEffect, useState } from 'react';
-import { checkUserAuth, loginUser } from '../../services/thunk/user';
-import { TUserLoginBody } from '@utils-types';
+import {
+  checkUserAuth,
+  loginUser,
+  registerUser
+} from '../../services/thunk/user';
+import { TUserLoginBody, TUserRegisterBody } from '@utils-types';
 import { userActions } from '../../services/slices/user';
+import { getIngredients } from '../../services/thunk/ingredients';
 
 function App() {
   const { authCheck } = userActions;
@@ -36,6 +41,10 @@ function App() {
     dispatch(loginUser(dataUser));
   };
 
+  const cbRegister = (dataUser: TUserRegisterBody) => {
+    dispatch(registerUser(dataUser));
+  };
+
   useEffect(() => {
     dispatch(checkUserAuth())
       .unwrap()
@@ -43,7 +52,8 @@ function App() {
         console.log(err);
       })
       .finally(() => dispatch(authCheck()));
-  }, [dispatch, authCheck]);
+    dispatch(getIngredients());
+  }, [dispatch]);
 
   const navigate = useNavigate();
   const location: Location<{ backgroundLocation: Location }> = useLocation();
@@ -58,16 +68,16 @@ function App() {
         <Route
           path='/login'
           element={
-            <ProtectedRoute>
-              <Login />
+            <ProtectedRoute onlyUnAuth>
+              <Login onLogin={cbLogin} />
             </ProtectedRoute>
           }
         />
         <Route
           path='/register'
           element={
-            <ProtectedRoute>
-              <Register />
+            <ProtectedRoute onlyUnAuth>
+              <Register onRegister={cbRegister} />
             </ProtectedRoute>
           }
         />
@@ -103,7 +113,16 @@ function App() {
             </ProtectedRoute>
           }
         />
-        <Route path='/feed/:number' element={<ConstructorPage />} />
+        <Route path='/feed/:number' element={<OrderInfo />} />
+        <Route path='/ingredients/:id' element={<IngredientDetails />} />
+        <Route
+          path='/profile/orders/:number'
+          element={
+            <ProtectedRoute>
+              <OrderInfo />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </div>
   );

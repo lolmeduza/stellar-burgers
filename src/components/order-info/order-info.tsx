@@ -2,6 +2,8 @@ import { FC, useMemo } from 'react';
 import { Preloader } from '../ui/preloader';
 import { OrderInfoUI } from '../ui/order-info';
 import { TIngredient } from '@utils-types';
+import { ordersSelector } from '../../services/slices/orders';
+import { useSelector } from '../../services/hooks';
 
 export const OrderInfo: FC = () => {
   /** TODO: взять переменные orderData и ingredients из стора */
@@ -15,7 +17,7 @@ export const OrderInfo: FC = () => {
     number: 0
   };
 
-  // const orderData = useSelector(userDataSelector);
+  // const orderData = useSelector(ordersSelector.getOrders);
 
   const ingredients: TIngredient[] = [];
 

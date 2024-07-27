@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { RequestStatus, TUser } from '@utils-types';
-import { checkUserAuth } from '../thunk/user';
+import { checkUserAuth, loginUser, registerUser } from '../thunk/user';
 
 export interface TUserState {
   isAuthChecked: boolean;
@@ -23,15 +23,31 @@ export const userSlice = createSlice({
     }
   },
   extraReducers: (builder) => {
-    builder.addCase(checkUserAuth.fulfilled, (state, action) => {
-      state.data = action.payload.user;
-      state.requestStatus = RequestStatus.Success;
-      console.log('Auth payload', action);
-    });
+    builder
+      .addCase(checkUserAuth.fulfilled, (state, action) => {
+        state.data = action.payload.user;
+        state.requestStatus = RequestStatus.Success;
+        console.log('Auth payload', action);
+      })
+      .addCase(registerUser.fulfilled, (state, action) => {
+        state.data = action.payload.user;
+        state.requestStatus = RequestStatus.Success;
+      })
+      .addCase(loginUser.fulfilled, (state, action) => {
+        state.data = action.payload.user;
+        state.requestStatus = RequestStatus.Success;
+      });
+    // .addMatcher(isActionPending(USER_SLICE_NAME), state => {
+    //   state.requestStatus = RequestStatus.Loading;
+    // })
+    // .addMatcher(isActionRejected(USER_SLICE_NAME), state => {
+    //   state.requestStatus = RequestStatus.Failed;
+    // });
   },
   selectors: {
     userDataSelector: (state) => state.data,
-    isAuthCheckedSelector: (state) => state.isAuthChecked
+    isAuthCheckedSelector: (state) => state.isAuthChecked,
+    userName: (state) => state.data?.name
   }
 });
 

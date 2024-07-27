@@ -1,22 +1,33 @@
 import { FC, useMemo } from 'react';
 import { TConstructorIngredient } from '@utils-types';
 import { BurgerConstructorUI } from '@ui';
+import { useDispatch, useSelector } from '../../services/hooks';
+import { constructorSelector } from '../../services/slices/burgerConstructor';
+import { createOrder } from '../../services/thunk/createOrder';
+import { ingredientsSelector } from '../../services/slices/ingredients';
 
 export const BurgerConstructor: FC = () => {
-  /** TODO: взять переменные constructorItems, orderRequest и orderModalData из стора */
-  const constructorItems = {
-    bun: {
-      price: 0
-    },
-    ingredients: []
-  };
+  const bun = useSelector(constructorSelector.constructorBun);
+  const ingredients = useSelector(constructorSelector.constructorIngredients);
 
+  const constructorItems = {
+    bun: bun,
+    ingredients: ingredients
+  };
+  const dispatch = useDispatch();
   const orderRequest = false;
 
   const orderModalData = null;
 
   const onOrderClick = () => {
     if (!constructorItems.bun || orderRequest) return;
+    let data: string[] = [];
+    data.push(constructorItems.bun._id);
+    ingredients.forEach((ingredient) => {
+      data.push(ingredient._id);
+    });
+    console.log('DATA: ', data);
+    dispatch(createOrder(data));
   };
   const closeOrderModal = () => {};
 
@@ -29,8 +40,6 @@ export const BurgerConstructor: FC = () => {
       ),
     [constructorItems]
   );
-
-  return null;
 
   return (
     <BurgerConstructorUI

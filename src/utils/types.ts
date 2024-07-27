@@ -53,7 +53,11 @@ export type UserResponse = {
   user: TUser;
 };
 
-export type TUserResponseToken = {};
+export type TUserResponseToken = {
+  user: TUser;
+  accessToken: string;
+  refreshToken: string;
+};
 
 export type TTabMode = 'bun' | 'sauce' | 'main';
 

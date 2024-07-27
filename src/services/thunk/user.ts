@@ -11,12 +11,17 @@ import { setCookie } from '../../utils/cookie';
 const USER_SLICE_NAME = 'user';
 export const checkUserAuth = createAppAsyncThunk<UserResponse, void>(
   `${USER_SLICE_NAME}/checkUserAuth`,
-  async (_) => await getUserApi()
+  getUserApi
 );
 
 export const loginUser = createAppAsyncThunk<UserResponse, TLoginData>(
   `${USER_SLICE_NAME}/loginUser`,
-  async (data: TLoginData) => await loginUserApi(data)
+  async (data: TLoginData) => {
+    const res = await loginUserApi(data);
+    setCookie('accessToken', res.accessToken);
+    setCookie('refreshToken', res.refreshToken);
+    return res;
+  }
 );
 
 export const registerUser = createAppAsyncThunk<

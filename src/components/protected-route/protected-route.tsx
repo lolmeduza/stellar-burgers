@@ -20,14 +20,25 @@ export const ProtectedRoute = ({
 
   if (!isAuthChecked) {
     console.log('LOADING AUTH');
-    // пока идёт чекаут пользователя, показываем прелоадер
     return <Preloader />;
   }
 
   if (!onlyUnAuth && !user) {
     console.log('Navigate to login');
     // если пользователь на странице авторизации и данных в хранилище нет, то делаем редирект
-    return <Navigate replace to='/login' state={{ from: location }} />; // в поле from объекта location.state записываем информацию о URL
+    return (
+      <Navigate
+        replace
+        to={'/login'}
+        state={{
+          from: {
+            ...location,
+            backgroundLocation: location.state?.backgroundLocation,
+            state: null
+          }
+        }}
+      />
+    );
   }
 
   if (onlyUnAuth && user) {
@@ -37,7 +48,7 @@ export const ProtectedRoute = ({
     // мы сами создаём объект c указанием адреса и делаем переадресацию на главную страницу
     const from = location.state?.from || { pathname: '/' };
     const backgroundLocation = location.state?.from?.backgroundLocation || null;
-    console.log('Navigate to ', from);
+    console.log('Navigate to FROM', from);
     return <Navigate replace to={from} state={{ from: backgroundLocation }} />;
   }
 
