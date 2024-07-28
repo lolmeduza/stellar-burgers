@@ -26,7 +26,6 @@ export const feedSlice = createSlice({
         state.status = RequestStatus.Loading;
       })
       .addCase(getFeed.fulfilled, (state, { payload }) => {
-        console.log('Feed:', payload);
         state.data = payload.orders;
         state.total = payload.total;
         state.totalToday = payload.totalToday;

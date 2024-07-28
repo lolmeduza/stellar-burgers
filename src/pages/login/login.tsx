@@ -11,7 +11,6 @@ export const Login = ({ onLogin }: LoginProps) => {
   const [password, setPassword] = useState('');
 
   const handleSubmit = (e: SyntheticEvent) => {
-    console.log('Submit login');
     e.preventDefault();
     if (!email || !password) {
       return;

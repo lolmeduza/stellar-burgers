@@ -16,15 +16,11 @@ export const ProtectedRoute = ({
   const user = useSelector(userSelectors.userDataSelector); // userDataSelector — селектор получения пользователя из store
   const location = useLocation();
 
-  console.log(isAuthChecked, user, location);
-
   if (!isAuthChecked) {
-    console.log('LOADING AUTH');
     return <Preloader />;
   }
 
   if (!onlyUnAuth && !user) {
-    console.log('Navigate to login');
     // если пользователь на странице авторизации и данных в хранилище нет, то делаем редирект
     return (
       <Navigate
@@ -48,7 +44,7 @@ export const ProtectedRoute = ({
     // мы сами создаём объект c указанием адреса и делаем переадресацию на главную страницу
     const from = location.state?.from || { pathname: '/' };
     const backgroundLocation = location.state?.from?.backgroundLocation || null;
-    console.log('Navigate to FROM', from);
+
     return <Navigate replace to={from} state={{ from: backgroundLocation }} />;
   }
 

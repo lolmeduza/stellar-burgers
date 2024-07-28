@@ -16,7 +16,7 @@ export const Register = ({ onRegister }: RegisterProps) => {
     if (!email || !password || !userName) {
       return;
     }
-    console.log(email, userName, password);
+
     onRegister({ email: email, name: userName, password: password });
   };
 

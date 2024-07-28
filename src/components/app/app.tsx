@@ -30,6 +30,7 @@ import {
 import { TUserLoginBody, TUserRegisterBody } from '@utils-types';
 import { userActions } from '../../services/slices/user';
 import { getIngredients } from '../../services/thunk/ingredients';
+import { getFeed } from '../../services/thunk/feed';
 
 function App() {
   const { authCheck } = userActions;
