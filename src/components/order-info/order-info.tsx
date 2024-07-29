@@ -27,7 +27,6 @@ export const OrderInfo: FC = () => {
   const orderNumber = Number(params.number);
 
   useEffect(() => {
-    dispatch(getIngredients());
     dispatch(getOrder(orderNumber));
   }, [dispatch]);
 
