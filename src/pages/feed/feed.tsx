@@ -2,7 +2,11 @@ import { Preloader } from '@ui';
 import { FeedUI } from '@ui-pages';
 import { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from '../../services/hooks';
-import { feedSelector } from '../../services/slices/feed';
+import {
+  feedSelector,
+  feedSlice,
+  TFeedState
+} from '../../services/slices/feed';
 import { getFeed } from '../../services/thunk/feed';
 
 export const Feed: FC = () => {
@@ -13,7 +17,6 @@ export const Feed: FC = () => {
   }, [dispatch]);
   /** TODO: взять переменную из стора */
   const orders = useSelector(feedSelector.getOrders);
-
   if (!orders.length) {
     return <Preloader />;
   }

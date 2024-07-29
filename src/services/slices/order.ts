@@ -22,7 +22,6 @@ export const orderSlice = createSlice({
         state.status = RequestStatus.Loading;
       })
       .addCase(getOrder.fulfilled, (state, { payload }) => {
-        console.log('Order: ', payload);
         state.data = payload.orders;
         state.status = RequestStatus.Success;
       })

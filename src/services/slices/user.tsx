@@ -20,14 +20,17 @@ export const userSlice = createSlice({
   reducers: {
     authCheck(state) {
       state.isAuthChecked = true;
+    },
+    userLogout: (state) => {
+      state.data = null;
     }
   },
+
   extraReducers: (builder) => {
     builder
       .addCase(checkUserAuth.fulfilled, (state, action) => {
         state.data = action.payload.user;
         state.requestStatus = RequestStatus.Success;
-        console.log('Auth payload', action);
       })
       .addCase(registerUser.fulfilled, (state, action) => {
         state.data = action.payload.user;
@@ -37,12 +40,6 @@ export const userSlice = createSlice({
         state.data = action.payload.user;
         state.requestStatus = RequestStatus.Success;
       });
-    // .addMatcher(isActionPending(USER_SLICE_NAME), state => {
-    //   state.requestStatus = RequestStatus.Loading;
-    // })
-    // .addMatcher(isActionRejected(USER_SLICE_NAME), state => {
-    //   state.requestStatus = RequestStatus.Failed;
-    // });
   },
   selectors: {
     userDataSelector: (state) => state.data,
@@ -52,5 +49,4 @@ export const userSlice = createSlice({
 });
 
 export const userActions = userSlice.actions;
-
 export const userSelectors = userSlice.selectors;

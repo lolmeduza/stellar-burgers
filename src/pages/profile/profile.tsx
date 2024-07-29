@@ -44,6 +44,7 @@ export const Profile: FC = () => {
       ...prevState,
       [e.target.name]: e.target.value
     }));
+    console.log('a');
   };
 
   return (

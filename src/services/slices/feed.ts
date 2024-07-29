@@ -2,7 +2,7 @@ import { RequestStatus, TOrder } from '@utils-types';
 import { createSlice } from '@reduxjs/toolkit';
 import { getFeed } from '../thunk/feed';
 
-type TFeedState = {
+export type TFeedState = {
   data: TOrder[];
   total: number;
   totalToday: number;
@@ -36,7 +36,9 @@ export const feedSlice = createSlice({
       });
   },
   selectors: {
-    getOrders: (state: TFeedState) => state.data
+    getOrders: (state: TFeedState) => state.data,
+    getTotal: (state: TFeedState) => state.total,
+    getTotalToday: (state: TFeedState) => state.totalToday
   }
 });
 
