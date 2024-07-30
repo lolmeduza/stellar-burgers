@@ -18,7 +18,7 @@ import {
   Location,
   useNavigate
 } from 'react-router-dom';
-import { AppHeader, IngredientDetails, OrderInfo } from '@components';
+import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
 import { ProtectedRoute } from '../protected-route';
 import { useDispatch } from '../../services/hooks';
 import { useEffect, useState } from 'react';
@@ -57,8 +57,8 @@ function App() {
   }, [dispatch]);
 
   const navigate = useNavigate();
-  const location: Location<{ backgroundLocation: Location }> = useLocation();
-  const backgroundLocation = location.state?.backgroundLocation;
+  const location: Location<{ background: Location }> = useLocation();
+  const backgroundLocation = location.state?.background;
   return (
     <div className={styles.app}>
       <AppHeader />
@@ -114,17 +114,37 @@ function App() {
             </ProtectedRoute>
           }
         />
-        <Route path='/feed/:number' element={<OrderInfo />} />
-        <Route path='/ingredients/:id' element={<IngredientDetails />} />
-        <Route
-          path='/profile/orders/:number'
-          element={
-            <ProtectedRoute>
-              <OrderInfo />
-            </ProtectedRoute>
-          }
-        />
       </Routes>
+      {backgroundLocation && (
+        <Routes>
+          <Route
+            path='/feed/:number'
+            element={
+              <Modal title='Детали заказа' onClose={() => navigate(-1)}>
+                <OrderInfo />
+              </Modal>
+            }
+          />
+          <Route
+            path='/ingredients/:id'
+            element={
+              <Modal title='Детали ингридиента' onClose={() => navigate(-1)}>
+                <IngredientDetails />
+              </Modal>
+            }
+          />
+          <Route
+            path='/profile/orders/:number'
+            element={
+              <ProtectedRoute>
+                <Modal title='Детали заказа' onClose={() => navigate(-1)}>
+                  <OrderInfo />
+                </Modal>
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+      )}
     </div>
   );
 }

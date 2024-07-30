@@ -26,7 +26,6 @@ export const Profile: FC = () => {
     !!formValue.password;
 
   const handleSubmit = (e: SyntheticEvent) => {
-    console.log('Save profile submit');
     e.preventDefault();
   };
 
@@ -44,7 +43,6 @@ export const Profile: FC = () => {
       ...prevState,
       [e.target.name]: e.target.value
     }));
-    console.log('a');
   };
 
   return (

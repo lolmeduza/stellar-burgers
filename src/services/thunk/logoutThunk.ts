@@ -2,6 +2,7 @@ import { deleteCookie } from 'src/utils/cookie';
 import { createAppAsyncThunk } from '../hooks';
 import { logoutApi } from '@api';
 import { userSlice } from 'src/services/slices/user';
+
 export const logoutUser = createAppAsyncThunk(
   'user/logoutUser',
   (_, { dispatch }) => {

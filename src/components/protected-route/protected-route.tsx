@@ -12,8 +12,8 @@ export const ProtectedRoute = ({
   onlyUnAuth,
   children
 }: ProtectedRouteProps) => {
-  const isAuthChecked = useSelector(userSelectors.isAuthCheckedSelector); // isAuthCheckedSelector — селектор получения состояния загрузки пользователя
-  const user = useSelector(userSelectors.userDataSelector); // userDataSelector — селектор получения пользователя из store
+  const isAuthChecked = useSelector(userSelectors.isAuthCheckedSelector);
+  const user = useSelector(userSelectors.userDataSelector);
   const location = useLocation();
 
   if (!isAuthChecked) {
@@ -21,7 +21,6 @@ export const ProtectedRoute = ({
   }
 
   if (!onlyUnAuth && !user) {
-    // если пользователь на странице авторизации и данных в хранилище нет, то делаем редирект
     return (
       <Navigate
         replace
@@ -38,10 +37,6 @@ export const ProtectedRoute = ({
   }
 
   if (onlyUnAuth && user) {
-    // если пользователь на странице авторизации и данные есть в хранилище
-    // при обратном редиректе получаем данные о месте назначения редиректа из объекта location.state
-    // в случае если объекта location.state?.from нет — а такое может быть, если мы зашли на страницу логина по прямому URL
-    // мы сами создаём объект c указанием адреса и делаем переадресацию на главную страницу
     const from = location.state?.from || { pathname: '/' };
     const backgroundLocation = location.state?.from?.backgroundLocation || null;
 

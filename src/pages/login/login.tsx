@@ -1,6 +1,7 @@
 import { SyntheticEvent, useState } from 'react';
 import { LoginUI } from '@ui-pages';
 import { TUserLoginBody } from '@utils-types';
+import { on } from 'process';
 
 type LoginProps = {
   onLogin: (dataUser: TUserLoginBody) => void;
@@ -15,9 +16,6 @@ export const Login = ({ onLogin }: LoginProps) => {
     if (!email || !password) {
       return;
     }
-    //
-    // setEmail(email);
-    // setPassword(password);
     onLogin({ email: email, password: password });
   };
 

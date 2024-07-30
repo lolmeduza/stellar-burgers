@@ -1,56 +1,36 @@
-import { FC, useMemo, useState } from 'react';
-import { TConstructorIngredient, TOrder } from '@utils-types';
+import { FC, useMemo } from 'react';
+import { TConstructorIngredient } from '@utils-types';
 import { BurgerConstructorUI } from '@ui';
 import { useDispatch, useSelector } from '../../services/hooks';
 import { constructorSelector } from '../../services/slices/burgerConstructor';
-import {
-  TNewOrderResponse,
-  createOrder
-} from '../../services/thunk/createOrder';
-import { userSelectors } from '../../services/slices/user';
-import { useNavigate } from 'react-router-dom';
+import { createOrder } from '../../services/thunk/createOrder';
+import { ingredientsSelector } from '../../services/slices/ingredients';
 
 export const BurgerConstructor: FC = () => {
   const bun = useSelector(constructorSelector.constructorBun);
   const ingredients = useSelector(constructorSelector.constructorIngredients);
-  const user = useSelector(userSelectors.userDataSelector);
-  const navigate = useNavigate();
 
   const constructorItems = {
     bun: bun,
     ingredients: ingredients
   };
   const dispatch = useDispatch();
-  const [orderRequest, setOrderRequest] = useState<boolean>(false);
-  const [orderModalData, setOrderModalData] = useState<TOrder | null>(null);
+  const orderRequest = false;
 
-  const onOrderClick = async () => {
+  const orderModalData = null;
+
+  const onOrderClick = () => {
     if (!constructorItems.bun || orderRequest) return;
-
     let data: string[] = [];
-
     data.push(constructorItems.bun._id);
-
     ingredients.forEach((ingredient) => {
       data.push(ingredient._id);
     });
-
-    if (!user) {
-      navigate('/login');
-    } else {
-      setOrderRequest(true);
-
-      const response = await dispatch(createOrder(data));
-      const orderResponse = response.payload as TNewOrderResponse;
-
-      setOrderModalData(orderResponse.order);
-
-      setOrderRequest(false);
-    }
+    console.log('DATA: ', data);
+    dispatch(createOrder(data));
   };
-  const closeOrderModal = () => {
-    setOrderModalData(null);
-  };
+
+  const closeOrderModal = () => {};
 
   const price = useMemo(
     () =>

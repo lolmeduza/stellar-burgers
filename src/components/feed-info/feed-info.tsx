@@ -13,7 +13,6 @@ const getOrders = (orders: TOrder[], status: string): number[] =>
     .slice(0, 20);
 
 export const FeedInfo: FC = () => {
-  /** TODO: взять переменные из стора */
   const orders = useSelector(feedSelector.getOrders);
 
   const feed = {
@@ -32,8 +31,3 @@ export const FeedInfo: FC = () => {
     />
   );
 };
-
-// state.data = payload.orders;
-// state.total = payload.total;
-// state.totalToday = payload.totalToday;
-// state.status = RequestStatus.Success;
