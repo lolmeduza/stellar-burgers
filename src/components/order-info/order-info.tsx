@@ -1,33 +1,44 @@
-import { FC, useMemo } from 'react';
+import { FC, useEffect, useLayoutEffect, useMemo, useState } from 'react';
 import { Preloader } from '../ui/preloader';
 import { OrderInfoUI } from '../ui/order-info';
-import { TIngredient } from '@utils-types';
-
+import { TIngredient, TOrder } from '@utils-types';
+import { ordersSelector } from '../../services/slices/orders';
+import { useDispatch, useSelector } from '../../services/hooks';
+import { constructorSelector } from '../../services/slices/burgerConstructor';
+import { useNavigate, useParams } from 'react-router-dom';
+import { getOrder } from '../../services/thunk/order';
+import { singleOrderSelector } from '../../services/slices/order';
+import { getIngredients } from '../../services/thunk/ingredients';
+import { ingredientsSelector } from '../../services/slices/ingredients';
+import { Modal } from '../modal';
+import { BurgerIngredientsUI } from '@ui';
 export const OrderInfo: FC = () => {
-  /** TODO: взять переменные orderData и ingredients из стора */
-  const orderData = {
-    createdAt: '',
-    ingredients: [],
-    _id: '',
-    status: '',
-    name: '',
-    updatedAt: 'string',
-    number: 0
-  };
+  const dispatch = useDispatch();
+  const params = useParams();
+  const orderNumber = Number(params.number);
 
-  const ingredients: TIngredient[] = [];
+  const [InfoModalData, setModalData] = useState<boolean | null>(false);
+  const navigate = useNavigate();
+  useEffect(() => {
+    dispatch(getOrder(orderNumber));
+  }, [dispatch]);
+
+  const orderData = useSelector(singleOrderSelector.getSingleOrder);
+  const ingredients = useSelector(ingredientsSelector.getIngredients);
+
+  const objectBurger = orderData.find((item) => item.number === orderNumber);
 
   /* Готовим данные для отображения */
   const orderInfo = useMemo(() => {
-    if (!orderData || !ingredients.length) return null;
+    if (!orderData || !objectBurger || !ingredients.length) return null;
 
-    const date = new Date(orderData.createdAt);
+    const date = new Date(objectBurger.createdAt);
 
     type TIngredientsWithCount = {
       [key: string]: TIngredient & { count: number };
     };
 
-    const ingredientsInfo = orderData.ingredients.reduce(
+    const ingredientsInfo = objectBurger.ingredients.reduce(
       (acc: TIngredientsWithCount, item) => {
         if (!acc[item]) {
           const ingredient = ingredients.find((ing) => ing._id === item);
@@ -52,12 +63,12 @@ export const OrderInfo: FC = () => {
     );
 
     return {
-      ...orderData,
+      ...objectBurger,
       ingredientsInfo,
       date,
       total
     };
-  }, [orderData, ingredients]);
+  }, [objectBurger, ingredients]);
 
   if (!orderInfo) {
     return <Preloader />;
