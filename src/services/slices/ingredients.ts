@@ -35,3 +35,4 @@ export const ingredientsSlice = createSlice({
 });
 
 export const ingredientsSelector = ingredientsSlice.selectors;
+export const ingredientsReducer = ingredientsSlice.reducer;
