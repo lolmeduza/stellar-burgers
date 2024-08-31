@@ -1,8 +1,8 @@
 describe('проверяем order', function () {
   beforeEach(function () {
     cy.intercept('GET', 'api/ingredients', { fixture: 'ingredients.json' });
-    cy.intercept('GET', 'api/auth/user', { fixture: 'login.json' });
-    cy.intercept('GET', 'api/orders', { fixture: 'user.json' });
+    cy.intercept('GET', 'api/auth/user', { fixture: 'user.json' });
+    cy.intercept('POST', 'api/orders', { fixture: 'order.json' });
 
     window.localStorage.setItem(
       'refreshToken',
@@ -23,6 +23,16 @@ describe('проверяем order', function () {
 
     cy.get('[data-cy=make-order]').click();
 
-    // cy.get('[date-cy=]')
+    cy.get('[data-cy=order-number]').contains('123456').should('exist');
+
+    cy.get('[data-cy=close-modal]').click();
+    cy.get('[data-cy=order-number]').should('not.exist');
+
+    cy.get('[data-cy=constructor]')
+      .contains('MOCK Флюоресцентная булка R2-D3 (верх)')
+      .should('not.exist');
+    cy.get('[data-cy=constructor]')
+      .contains('MOCK Флюоресцентная булка R2-D3 (низ)')
+      .should('not.exist');
   });
 });
