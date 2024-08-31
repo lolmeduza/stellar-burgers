@@ -1,6 +1,6 @@
 import { RequestStatus, TOrder } from '@utils-types';
-import { orderSlice, singleOrderReducer } from './order';
-import { getOrder } from '../thunk/order';
+import { ordersReducer } from './orders';
+import { getOrders } from '../thunk/orders';
 
 describe('Super test', () => {
   type TOrdersState = {
@@ -14,8 +14,8 @@ describe('Super test', () => {
   };
 
   test('order loading', () => {
-    const action = { type: getOrder.pending.type };
-    const state = singleOrderReducer(initialState, action);
+    const action = { type: getOrders.pending.type };
+    const state = ordersReducer(initialState, action);
     expect(state).toEqual({ data: [], status: 'Loading' });
   });
 
@@ -34,20 +34,20 @@ describe('Super test', () => {
       ]
     };
     const action = {
-      type: getOrder.fulfilled.type,
+      type: getOrders.fulfilled.type,
       payload: payload
     };
-    const state = singleOrderReducer(initialState, action);
+    const state = ordersReducer(initialState, action);
 
     expect(state).toEqual({
-      data: payload.orders,
+      data: payload,
       status: 'Success'
     });
   });
 
   test('feed failed', () => {
-    const action = { type: getOrder.rejected.type };
-    const state = singleOrderReducer(initialState, action);
+    const action = { type: getOrders.rejected.type };
+    const state = ordersReducer(initialState, action);
 
     expect(state).toEqual({
       data: [],

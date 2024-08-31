@@ -1,0 +1,6 @@
+{
+  "success": true,
+  "accessToken": "fFake",
+  "refreshToke": "fake",
+  "user": { "email": "qq@mail.com", "name": "lolmeduza" }
+}

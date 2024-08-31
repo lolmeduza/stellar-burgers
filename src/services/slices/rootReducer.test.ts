@@ -4,25 +4,25 @@ import { createStore } from 'redux';
 import { configureStore } from '@reduxjs/toolkit';
 
 import { combineReducers } from '@reduxjs/toolkit';
-import { userSlice } from './user';
-import { ingredientsSlice } from './ingredients';
-import { constructorSlice } from './burgerConstructor';
-import { ordersSlice } from './orders';
-import { feedSlice } from './feed';
-import { orderSlice } from './order';
 
-describe('Root Reducer Suite', () => {
-  const myReducer = combineReducers({
-    [userSlice.name]: userSlice.reducer,
-    [ingredientsSlice.name]: ingredientsSlice.reducer,
-    [constructorSlice.name]: constructorSlice.reducer,
-    [ordersSlice.name]: ordersSlice.reducer,
-    [feedSlice.name]: feedSlice.reducer,
-    [orderSlice.name]: orderSlice.reducer
-  });
-  // console.log(myReducer);
-  // console.log(rootReducer);
-  test('loaded correctly', () => {
-    expect(myReducer).toEqual(myReducer);
+import { userReducer } from './user';
+import { ingredientsReducer } from './ingredients';
+import { constructorReducer } from './burgerConstructor';
+import { ordersReducer } from './orders';
+import { feedSelectorReducer } from './feed';
+import { singleOrderReducer } from './order';
+
+describe('RootReducerTest', () => {
+  it('initState', () => {
+    const initAction = { type: '@@INIT' };
+    const state = rootReducer(undefined, initAction);
+    expect(state).toEqual({
+      burgerConstructor: constructorReducer(undefined, initAction),
+      ingredients: ingredientsReducer(undefined, initAction),
+      orders: ordersReducer(undefined, initAction),
+      order: singleOrderReducer(undefined, initAction),
+      feed: feedSelectorReducer(undefined, initAction),
+      user: userReducer(undefined, initAction)
+    });
   });
 });
