@@ -1,3 +1,5 @@
+import { baseURL } from './baseUrl';
+
 describe('проверяем order', function () {
   beforeEach(function () {
     cy.intercept('GET', 'api/ingredients', { fixture: 'ingredients.json' });
@@ -9,7 +11,7 @@ describe('проверяем order', function () {
       JSON.stringify('my-powerful-refresh-token')
     );
     cy.setCookie('accessToken', 'my-powerful-access-token');
-    cy.visit('http://localhost:4000');
+    cy.visit(baseURL);
   });
 
   afterEach(function () {

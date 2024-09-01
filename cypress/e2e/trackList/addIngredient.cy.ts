@@ -1,8 +1,10 @@
+import { baseURL } from './baseUrl';
+
 describe('проверяем ingredients', function () {
   it('hz', function () {
     cy.fixture('ingredients.json').then((json) => {
       cy.intercept('GET', 'api/ingredients', json);
-      cy.visit('http://localhost:4000');
+      cy.visit(baseURL);
 
       const button = cy.get(`[data-cy=${1}]`);
       button.click({ multiple: true });

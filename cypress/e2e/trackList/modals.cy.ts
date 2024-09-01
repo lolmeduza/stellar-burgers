@@ -1,7 +1,9 @@
+import { baseURL } from './baseUrl';
+
 describe('проверяем order', function () {
   beforeEach(function () {
     cy.intercept('GET', 'api/ingredients', { fixture: 'ingredients.json' });
-    cy.visit('http://localhost:4000');
+    cy.visit(baseURL);
   });
 
   it('open modal with ingredient', function () {

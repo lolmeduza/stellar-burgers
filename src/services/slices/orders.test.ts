@@ -1,17 +1,17 @@
 import { RequestStatus, TOrder } from '@utils-types';
-import { ordersReducer } from './orders';
+import { ordersReducer, initialState } from './orders';
 import { getOrders } from '../thunk/orders';
 
 describe('Super test', () => {
-  type TOrdersState = {
-    data: TOrder[];
-    status: RequestStatus;
-  };
+  // type TOrdersState = {
+  //   data: TOrder[];
+  //   status: RequestStatus;
+  // };
 
-  const initialState: TOrdersState = {
-    data: [],
-    status: RequestStatus.Idle
-  };
+  // const initialState: TOrdersState = {
+  //   data: [],
+  //   status: RequestStatus.Idle
+  // };
 
   test('order loading', () => {
     const action = { type: getOrders.pending.type };

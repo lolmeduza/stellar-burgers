@@ -1,17 +1,17 @@
 import { RequestStatus, TIngredient } from '@utils-types';
-import { ingredientsReducer } from './ingredients';
+import { ingredientsReducer, initialState } from './ingredients';
 import { getIngredients } from '../thunk/ingredients';
 
 describe('Super test', () => {
-  type TIngredientsState = {
-    data: TIngredient[];
-    status: RequestStatus;
-  };
+  // type TIngredientsState = {
+  //   data: TIngredient[];
+  //   status: RequestStatus;
+  // };
 
-  const initialState: TIngredientsState = {
-    data: [],
-    status: RequestStatus.Idle
-  };
+  // const initialState: TIngredientsState = {
+  //   data: [],
+  //   status: RequestStatus.Idle
+  // };
 
   test('builder loading', () => {
     const action = { type: getIngredients.pending.type };

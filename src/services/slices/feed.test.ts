@@ -1,21 +1,21 @@
 import { RequestStatus, TOrder } from '@utils-types';
-import { feedSelectorReducer, TFeedState } from './feed';
+import { feedSelectorReducer, TFeedState, initialState } from './feed';
 import { getFeed } from '../thunk/feed';
 
 describe('Super test', () => {
-  type TFeedState = {
-    data: TOrder[];
-    total: number;
-    totalToday: number;
-    status: RequestStatus;
-  };
+  // type TFeedState = {
+  //   data: TOrder[];
+  //   total: number;
+  //   totalToday: number;
+  //   status: RequestStatus;
+  // };
 
-  const initialState: TFeedState = {
-    data: [],
-    total: 0,
-    totalToday: 0,
-    status: RequestStatus.Idle
-  };
+  // const initialState: TFeedState = {
+  //   data: [],
+  //   total: 0,
+  //   totalToday: 0,
+  //   status: RequestStatus.Idle
+  // };
 
   test('feed loading', () => {
     const action = { type: getFeed.pending.type };

@@ -9,7 +9,7 @@ export type TFeedState = {
   status: RequestStatus;
 };
 
-const initialState: TFeedState = {
+export const initialState: TFeedState = {
   data: [],
   total: 0,
   totalToday: 0,

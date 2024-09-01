@@ -1,19 +1,19 @@
 import { RequestStatus, TUser } from '@utils-types';
-import { userActions, userReducer } from './user';
+import { userActions, userReducer, initialState } from './user';
 import { checkUserAuth, loginUser, registerUser } from '../thunk/user';
 
 describe('Super test', () => {
-  interface TUserState {
-    isAuthChecked: boolean;
-    data: TUser | null;
-    requestStatus: RequestStatus;
-  }
+  // interface TUserState {
+  //   isAuthChecked: boolean;
+  //   data: TUser | null;
+  //   requestStatus: RequestStatus;
+  // }
 
-  const initialState: TUserState = {
-    isAuthChecked: false,
-    data: null,
-    requestStatus: RequestStatus.Idle
-  };
+  // const initialState: TUserState = {
+  //   isAuthChecked: false,
+  //   data: null,
+  //   requestStatus: RequestStatus.Idle
+  // };
 
   test('builder checkUserAuth fulfilled', () => {
     const payload = {
