@@ -144,7 +144,6 @@ describe('Super test', () => {
         image_large: 'https://code.s3.yandex.net/react/code/meat-01-large.png'
       })
     );
-    // console.log(result);
 
     expect(result).toEqual({
       bun: {
@@ -217,7 +216,6 @@ describe('Super test', () => {
         image_large: 'https://code.s3.yandex.net/react/code/meat-01-large.png'
       })
     );
-    // console.log(result);
 
     expect(result).toEqual({
       bun: null,

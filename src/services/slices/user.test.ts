@@ -18,8 +18,8 @@ describe('Super test', () => {
   test('builder checkUserAuth fulfilled', () => {
     const payload = {
       user: {
-        email: 'kek@lol.com',
-        name: 'kek'
+        email: 'lolmeduza@lol.com',
+        name: 'lol'
       }
     };
 
@@ -35,8 +35,8 @@ describe('Super test', () => {
   test('builder registerUser fulfilled', () => {
     const payload = {
       user: {
-        email: 'kek@lol.com',
-        name: 'kek'
+        email: 'lolmeduza@lol.com',
+        name: 'lol'
       }
     };
 
@@ -52,8 +52,8 @@ describe('Super test', () => {
   test('builder loginUser fulfilled', () => {
     const payload = {
       user: {
-        email: 'kek@lol.com',
-        name: 'kek'
+        email: 'lolmeduza@lol.com',
+        name: 'lol'
       }
     };
 
