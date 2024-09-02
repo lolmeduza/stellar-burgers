@@ -7,7 +7,7 @@ type TOrdersState = {
   status: RequestStatus;
 };
 
-const initialState: TOrdersState = {
+export const initialState: TOrdersState = {
   data: [],
   status: RequestStatus.Idle
 };
@@ -35,3 +35,4 @@ export const orderSlice = createSlice({
 });
 
 export const singleOrderSelector = orderSlice.selectors;
+export const singleOrderReducer = orderSlice.reducer;

@@ -33,6 +33,7 @@ export const IngredientsCategory = forwardRef<
       ingredients={ingredients}
       ingredientsCounters={ingredientsCounters}
       ref={ref}
+      data-cy={'123'}
     />
   );
 });

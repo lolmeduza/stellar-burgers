@@ -49,4 +49,5 @@ export const constructorSlice = createSlice({
 });
 
 export const constructorActions = constructorSlice.actions;
+export const constructorReducer = constructorSlice.reducer;
 export const constructorSelector = constructorSlice.selectors;
